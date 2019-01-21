@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Writer Pad</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="Rate">Rate This App</string>
+    <string name="shareapp"></string>
+    <string name="Review">Reviews</string>
+    <string name="more">More Apps</string>
+    <string name="exit">Exit</string>
+
+
+    <string name="appID">ca-app-pub-4726525166301004~5073653508</string>
+    <string name="instes">ca-app-pub-3940256099942544/1033173712</string>
+
+    <string name="interstitial_full_screen">ca-app-pub-4726525166301004/9859253932</string>
+
+
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+</resources>
