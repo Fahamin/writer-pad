@@ -61,12 +61,14 @@ public class second extends AppCompatActivity {
         setContentView(R.layout.activity_second);
 
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-        MobileAds.initialize(getApplicationContext(), getString(R.string.appID));
+      //  MobileAds.initialize(getApplicationContext(), getString(R.string.appID));
+
+
         //  adView = (AdView) findViewById(R.id.ad_view);
        // adRequest = new AdRequest.Builder().build();
         // adView.loadAd(adRequest);*/
@@ -80,37 +82,14 @@ public class second extends AppCompatActivity {
 
                 gestureOverlayView.clear(false);
 
-                count++;
-                if (count % 3 == 0) {
-                    mInterstitialAd = new InterstitialAd(second.this);
-                    mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
-                    AdRequest adRequest = new AdRequest.Builder().build();//.addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
-                    mInterstitialAd.loadAd(adRequest);
-
-                    mInterstitialAd.setAdListener(new AdListener() {
-                        public void onAdLoaded() {
-                            showInterstitial();
-                        }
-                    });
-                }
+              // addsShow();
             }
         });
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkPermissionAndSaveSignature();
-                count++;
-                if (count % 3 == 0) {
-                    mInterstitialAd = new InterstitialAd(second.this);
-                    mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
-                    AdRequest adRequest = new AdRequest.Builder().build();//.addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
-                    mInterstitialAd.loadAd(adRequest);
-                    mInterstitialAd.setAdListener(new AdListener() {
-                        public void onAdLoaded() {
-                            showInterstitial();
-                        }
-                    });
-                }
+                //addsShow();
             }
 
         });
@@ -118,24 +97,28 @@ public class second extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count++;
-                if (count % 3 == 0) {
-                    mInterstitialAd = new InterstitialAd(second.this);
-                    mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
-                    AdRequest adRequest = new AdRequest.Builder().build();//.addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
-                    mInterstitialAd.loadAd(adRequest);
-
-                    mInterstitialAd.setAdListener(new AdListener() {
-                        public void onAdLoaded() {
-                            showInterstitial();
-                        }
-                    });
-                }
+             //  addsShow();
 
                 Intent iE = new Intent(Intent.ACTION_VIEW, Uri.parse("content://media/internal/images/media"));
                 startActivity(iE);
             }
         });
+    }
+
+    private void addsShow() {
+        count++;
+        if (count % 3 == 0) {
+            mInterstitialAd = new InterstitialAd(second.this);
+            mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
+            AdRequest adRequest = new AdRequest.Builder().build();//.addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
+            mInterstitialAd.loadAd(adRequest);
+
+            mInterstitialAd.setAdListener(new AdListener() {
+                public void onAdLoaded() {
+                    showInterstitial();
+                }
+            });
+        }
     }
 
     private void showInterstitial() {
