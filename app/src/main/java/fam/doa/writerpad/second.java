@@ -66,7 +66,7 @@ public class second extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-      //  MobileAds.initialize(getApplicationContext(), getString(R.string.appID));
+        MobileAds.initialize(getApplicationContext(), getString(R.string.appID));
 
 
         //  adView = (AdView) findViewById(R.id.ad_view);
@@ -82,14 +82,14 @@ public class second extends AppCompatActivity {
 
                 gestureOverlayView.clear(false);
 
-              // addsShow();
+               addsShow();
             }
         });
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkPermissionAndSaveSignature();
-                //addsShow();
+                addsShow();
             }
 
         });
@@ -97,7 +97,7 @@ public class second extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //  addsShow();
+               addsShow();
 
                 Intent iE = new Intent(Intent.ACTION_VIEW, Uri.parse("content://media/internal/images/media"));
                 startActivity(iE);
@@ -177,21 +177,21 @@ public class second extends AppCompatActivity {
                 startActivity(Intent.createChooser(shareIntent, "Share via"));
                 break;
             case R.id.rate:
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(""));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=fam.doa.writerpad"));
                 startActivity(intent);
                 break;
             case R.id.review:
-                Intent inter = new Intent(Intent.ACTION_VIEW, Uri.parse(
-                       ""));
+                Intent inter = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=fam.doa.writerpad"));
                 startActivity(inter);
                 break;
             case R.id.moreapp:
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(""));
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Cave+of+app"));
                 startActivity(i);
                 break;
             case R.id.exit:
-                finish();
                 System.exit(0);
+                finish();
+
                 break;
         }
         return super.onOptionsItemSelected(item);
