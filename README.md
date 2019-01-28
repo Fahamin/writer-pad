@@ -9,4 +9,7 @@ then you take a scrensot or save image to your device and direct open gallary in
 
 learn and learn to write 
 
+
+https://mycodingschooll.blogspot.com/2019/01/privacy-policy-cave-of-app-built-touch.html
+
  
