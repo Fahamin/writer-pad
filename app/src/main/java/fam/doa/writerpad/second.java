@@ -74,6 +74,7 @@ public class second extends AppCompatActivity {
         // adView.loadAd(adRequest);*/
 
         init();
+        addsShow();
         gestureOverlayView.addOnGesturePerformedListener(new gesturecustom());
 
         redrawButton.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +108,7 @@ public class second extends AppCompatActivity {
 
     private void addsShow() {
         count++;
-        if (count % 3 == 0) {
+        if (count % 2 == 0) {
             mInterstitialAd = new InterstitialAd(second.this);
             mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
             AdRequest adRequest = new AdRequest.Builder().build();//.addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
@@ -185,7 +186,7 @@ public class second extends AppCompatActivity {
                 startActivity(inter);
                 break;
             case R.id.moreapp:
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Cave+of+app"));
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/dev?id=7556100466882241730"));
                 startActivity(i);
                 break;
             case R.id.exit:
