@@ -1,32 +1,30 @@
 package fam.doa.writerpad;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.gesture.GestureOverlayView;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
@@ -39,7 +37,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 
-
 public class second extends AppCompatActivity {
     GestureOverlayView gestureOverlayView;
     InterstitialAd mInterstitialAd;
@@ -48,9 +45,12 @@ public class second extends AppCompatActivity {
     private Button saveButton = null;
     private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 1;
     Button b;
-    // private AdView adView;
     AdRequest adRequest;
     int count = 0;
+    private AdView adView;
+
+    LinearLayout addLayout;
+    boolean connected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,46 +69,41 @@ public class second extends AppCompatActivity {
         MobileAds.initialize(getApplicationContext(), getString(R.string.appID));
 
 
-        //  adView = (AdView) findViewById(R.id.ad_view);
-       // adRequest = new AdRequest.Builder().build();
-        // adView.loadAd(adRequest);*/
+        adView = (AdView) findViewById(R.id.adView);
+        adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+        addLayout = findViewById(R.id.addShowId);
 
         init();
+
         addsShow();
         gestureOverlayView.addOnGesturePerformedListener(new gesturecustom());
 
-        redrawButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                gestureOverlayView.clear(false);
+        if (conectionCheck()) {
+            addLayout.setVisibility(View.VISIBLE);
+        } else
+            addLayout.setVisibility(View.GONE);
 
-               addsShow();
-            }
-        });
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPermissionAndSaveSignature();
-                addsShow();
-            }
 
-        });
-        b = findViewById(R.id.gallery);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               addsShow();
+    }
 
-                Intent iE = new Intent(Intent.ACTION_VIEW, Uri.parse("content://media/internal/images/media"));
-                startActivity(iE);
-            }
-        });
+    // private AdView adView;
+    public boolean conectionCheck() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            return true;
+        } else
+            return false;
+
     }
 
     private void addsShow() {
         count++;
-        if (count % 2 == 0) {
+        if (count % 3 == 0) {
             mInterstitialAd = new InterstitialAd(second.this);
             mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
             AdRequest adRequest = new AdRequest.Builder().build();//.addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
@@ -169,6 +164,14 @@ public class second extends AppCompatActivity {
                         })
                         .show();
                 break;
+            case R.id.clearImageId:
+                addsShow();
+                gestureOverlayView.clear(false);
+                break;
+            case R.id.saveImageId:
+                addsShow();
+                checkPermissionAndSaveSignature();
+                break;
             case R.id.share:
                 Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
@@ -207,12 +210,7 @@ public class second extends AppCompatActivity {
         if (gestureOverlayView == null) {
             gestureOverlayView = (GestureOverlayView) findViewById(R.id.sign_pad);
         }
-        if (redrawButton == null) {
-            redrawButton = (Button) findViewById(R.id.redraw_button);
-        }
-        if (saveButton == null) {
-            saveButton = (Button) findViewById(R.id.save_button);
-        }
+
     }
 
     private void checkPermissionAndSaveSignature() {

@@ -11,7 +11,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    int p;
     ProgressBar Progressbar;
     TextView ShowText;
     int progressBarValue = 0;
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         {
             actionBar.hide();
         }
-        // final ProgressBar progressBar = findViewById(R.id.progress);
         Progressbar = (ProgressBar)findViewById(R.id.progressBar1);
         ShowText = (TextView)findViewById(R.id.textView1);
 
